@@ -1,7 +1,9 @@
+import PublicLayout from "@/components/layout/PublicLayout";
+
 export default function Home() {
   return (
-    <main>
+    <PublicLayout>
       <h1>Liftoon</h1>
-    </main>
+    </PublicLayout>
   );
 }
