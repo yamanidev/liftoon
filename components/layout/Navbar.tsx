@@ -1,5 +1,6 @@
 import { MagnifyingGlassIcon } from "@heroicons/react/16/solid";
 import Link from "next/link";
+import NavbarLink from "./NavbarLink";
 
 export default function Navbar() {
   return (
@@ -10,27 +11,15 @@ export default function Navbar() {
             Liftoon
           </Link>
           <div className="flex items-center rounded-md bg-gray-900 p-1">
-            <ul className="flex items-center text-sm">
+            <ul className="flex items-center gap-1 text-sm">
               <li>
-                <Link
-                  href="/"
-                  className="inline-block rounded-md px-3 py-1.5 transition hover:bg-gray-600">
-                  Work
-                </Link>
+                <NavbarLink href="/">Work</NavbarLink>
               </li>
               <li>
-                <Link
-                  href="#"
-                  className="inline-block rounded-md px-3 py-1.5 transition hover:bg-gray-600">
-                  Blog
-                </Link>
+                <NavbarLink href="#">Blog</NavbarLink>
               </li>
               <li>
-                <Link
-                  href="#"
-                  className="inline-block rounded-md px-3 py-1.5 transition hover:bg-gray-600">
-                  Contact
-                </Link>
+                <NavbarLink href="#">Contact</NavbarLink>
               </li>
             </ul>
             <button className="ml-5">
