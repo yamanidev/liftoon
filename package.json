@@ -10,6 +10,7 @@
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "dependencies": {
+    "@heroicons/react": "^2.1.5",
     "@sanity/image-url": "1",
     "@sanity/vision": "3",
     "next": "15.0.3",
