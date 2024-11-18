@@ -8,12 +8,14 @@ export default defineType({
     {
       name: "title",
       type: "string",
-      title: "Title"
+      title: "Title",
+      validation: (Rule) => Rule.required()
     },
     defineField({
       name: "slug",
       title: "Slug",
       type: "slug",
+      validation: (Rule) => Rule.required(),
       options: {
         source: "title"
       }
@@ -21,12 +23,14 @@ export default defineType({
     {
       name: "description",
       type: "text",
-      title: "Description"
+      title: "Description",
+      validation: (Rule) => Rule.required()
     },
     {
       name: "thumbnail",
       type: "image", // @TODO: figure out how to allow videos as well
-      title: "Image/Video"
+      title: "Image/Video",
+      validation: (Rule) => Rule.required()
     },
     {
       name: "sections",
