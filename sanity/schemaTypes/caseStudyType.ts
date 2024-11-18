@@ -1,9 +1,9 @@
-import { defineField, defineType } from "sanity";
+import { defineType } from "sanity";
 
 export default defineType({
   name: "caseStudy",
   type: "document",
-  title: "Case Studies",
+  title: "Case Study",
   fields: [
     {
       name: "title",
@@ -11,7 +11,7 @@ export default defineType({
       title: "Title",
       validation: (Rule) => Rule.required()
     },
-    defineField({
+    {
       name: "slug",
       title: "Slug",
       type: "slug",
@@ -19,7 +19,8 @@ export default defineType({
       options: {
         source: "title"
       }
-    }),
+    },
+
     {
       name: "description",
       type: "text",
@@ -32,11 +33,49 @@ export default defineType({
       title: "Image/Video",
       validation: (Rule) => Rule.required()
     },
+
+    // Hero section
+    {
+      name: "heroSection",
+      type: "object",
+      title: "Hero Section",
+      fields: [
+        {
+          name: "heroTitle",
+          type: "string",
+          title: "Hero Title (if omitted, the main title value will be used)"
+        },
+        {
+          name: "heroDescription",
+          type: "text",
+          title: "Hero Description (if omitted, the main description will be used)"
+        }
+      ]
+    },
+
+    // Other sections
     {
       name: "sections",
       type: "array",
       title: "Sections",
-      of: [{ type: "reference", to: [{ type: "caseStudySection" }] }]
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "sectionTitle", type: "string", title: "Section Title" },
+            { name: "sectionDescription", type: "text", title: "Section Text" },
+            {
+              name: "cta",
+              type: "object",
+              title: "Call to Action",
+              fields: [
+                { name: "ctaText", type: "string", title: "CTA Text" },
+                { name: "ctaLink", type: "url", title: "CTA Link" } // @TODO: figure out a way to accept internal links (relative ones?)
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 });
