@@ -1,12 +1,13 @@
 import PublicLayout from "@/components/layout/PublicLayout";
-import { HOME_CASE_STUDIES_QUERYResult } from "@/sanity.types";
-import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
 import { HOME_CASE_STUDIES_QUERY } from "@/sanity/lib/queries";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function Home() {
-  const caseStudies = await client.fetch<HOME_CASE_STUDIES_QUERYResult>(HOME_CASE_STUDIES_QUERY);
+  const { data: caseStudies } = await sanityFetch({
+    query: HOME_CASE_STUDIES_QUERY
+  });
 
   return (
     <PublicLayout>
