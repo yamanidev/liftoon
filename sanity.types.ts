@@ -68,44 +68,6 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type Slug = {
-  _type: "slug";
-  current?: string;
-  source?: string;
-};
-
-export type Hero = {
-  _id: string;
-  _type: "hero";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  description?: string;
-  image?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-};
-
-export type CaseStudySection = {
-  _id: string;
-  _type: "caseStudySection";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  description?: string;
-  cta?: string;
-};
-
 export type CaseStudy = {
   _id: string;
   _type: "caseStudy";
@@ -113,6 +75,7 @@ export type CaseStudy = {
   _updatedAt: string;
   _rev: string;
   title?: string;
+  slug?: Slug;
   description?: string;
   thumbnail?: {
     asset?: {
@@ -125,12 +88,18 @@ export type CaseStudy = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  heroSection?: {
+    heroTitle?: string;
+    heroDescription?: string;
+  };
   sections?: Array<{
-    _ref: string;
-    _type: "reference";
-    _weak?: boolean;
+    sectionTitle?: string;
+    sectionDescription?: string;
+    cta?: {
+      ctaText?: string;
+      ctaLink?: string;
+    };
     _key: string;
-    [internalGroqTypeReferenceTo]?: "caseStudySection";
   }>;
 };
 
@@ -191,19 +160,82 @@ export type SanityImageMetadata = {
   isOpaque?: boolean;
 };
 
+export type Slug = {
+  _type: "slug";
+  current?: string;
+  source?: string;
+};
+
 export type AllSanitySchemaTypes =
   | SanityImagePaletteSwatch
   | SanityImagePalette
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
-  | Slug
-  | Hero
-  | CaseStudySection
   | CaseStudy
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
   | SanityAssetSourceData
-  | SanityImageMetadata;
+  | SanityImageMetadata
+  | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./sanity/lib/queries.ts
+// Variable: HOME_CASE_STUDIES_QUERY
+// Query: *[_type == "caseStudy"][0...6]{    _id, title, description, slug, thumbnail {      asset -> {        url      }    }  }
+export type HOME_CASE_STUDIES_QUERYResult = Array<{
+  _id: string;
+  title: string | null;
+  description: string | null;
+  slug: Slug | null;
+  thumbnail: {
+    asset: {
+      url: string | null;
+    } | null;
+  } | null;
+}>;
+// Variable: CASE_STUDY_QUERY
+// Query: *[_type == 'caseStudy' && slug.current == $slug][0]
+export type CASE_STUDY_QUERYResult = {
+  _id: string;
+  _type: "caseStudy";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  slug?: Slug;
+  description?: string;
+  thumbnail?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
+    };
+    hotspot?: SanityImageHotspot;
+    crop?: SanityImageCrop;
+    _type: "image";
+  };
+  heroSection?: {
+    heroTitle?: string;
+    heroDescription?: string;
+  };
+  sections?: Array<{
+    sectionTitle?: string;
+    sectionDescription?: string;
+    cta?: {
+      ctaText?: string;
+      ctaLink?: string;
+    };
+    _key: string;
+  }>;
+} | null;
+
+// Query TypeMap
+import "@sanity/client";
+declare module "@sanity/client" {
+  interface SanityQueries {
+    '*[_type == "caseStudy"][0...6]{\n    _id, title, description, slug, thumbnail {\n      asset -> {\n        url\n      }\n    }\n  }': HOME_CASE_STUDIES_QUERYResult;
+    "*[_type == 'caseStudy' && slug.current == $slug][0]": CASE_STUDY_QUERYResult;
+  }
+}
