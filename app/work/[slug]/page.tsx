@@ -9,8 +9,6 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   const slug = (await params).slug;
   const caseStudyData = await client.fetch<CASE_STUDY_QUERYResult>(CASE_STUDY_QUERY, { slug });
 
-  console.log(caseStudyData);
-
   return (
     <PublicLayout>
       <div className="mx-auto w-full max-w-5xl px-2">
