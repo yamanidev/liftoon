@@ -6,7 +6,7 @@ export default function Navbar() {
   return (
     <header>
       <nav>
-        <div className="mx-auto flex w-full max-w-3xl items-center justify-between px-2 py-4">
+        <div className="mx-auto flex w-full max-w-5xl items-center justify-between px-2 py-4">
           <Link href="/" className="font-bold">
             Liftoon
           </Link>
