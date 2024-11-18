@@ -9,7 +9,7 @@ export default function PublicLayout({
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <main className="sm:pt-[4.5rem]">{children}</main>
     </>
   );
 }
