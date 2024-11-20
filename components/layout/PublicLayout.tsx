@@ -1,10 +1,10 @@
-import React from "react";
+import { ReactNode } from "react";
 import Navbar from "./Navbar";
 
 export default function PublicLayout({
   children
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
   return (
     <>
