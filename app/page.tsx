@@ -22,6 +22,7 @@ export default async function Home() {
                   src={caseStudy.thumbnail?.asset?.url as string}
                   alt=""
                   className="h-[37.5rem] rounded-md object-cover"
+                  priority
                 />
                 <h2 className="mb-1 mt-2 font-bold">{caseStudy.title}</h2>
                 <p className="text-sm text-gray-300">{caseStudy.description}</p>
