@@ -1,6 +1,7 @@
 import { type SchemaTypeDefinition } from "sanity";
-import caseStudyType from "./caseStudyType";
+import pageType from "./pageType";
+import { SECTIONS } from "./sections";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [caseStudyType]
+  types: [pageType, ...SECTIONS]
 };
