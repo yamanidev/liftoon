@@ -68,14 +68,30 @@ export type Geopoint = {
   alt?: number;
 };
 
-export type CaseStudy = {
-  _id: string;
-  _type: "caseStudy";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
+export type CaseStudySection = {
+  _type: "caseStudySection";
   title?: string;
-  slug?: Slug;
+  description?: string;
+  cta?: {
+    ctaText?: string;
+    ctaLink?: string;
+  };
+  showCta?: boolean;
+};
+
+export type CaseStudyHero = {
+  _type: "caseStudyHero";
+  title?: string;
+  description?: string;
+  project?: {
+    projectText?: string;
+    projectLink?: string;
+  };
+};
+
+export type CaseStudyCard = {
+  _type: "caseStudyCard";
+  title?: string;
   description?: string;
   thumbnail?: {
     asset?: {
@@ -88,19 +104,27 @@ export type CaseStudy = {
     crop?: SanityImageCrop;
     _type: "image";
   };
-  heroSection?: {
-    heroTitle?: string;
-    heroDescription?: string;
-  };
-  sections?: Array<{
-    sectionTitle?: string;
-    sectionDescription?: string;
-    cta?: {
-      ctaText?: string;
-      ctaLink?: string;
-    };
-    _key: string;
-  }>;
+};
+
+export type Page = {
+  _id: string;
+  _type: "page";
+  _createdAt: string;
+  _updatedAt: string;
+  _rev: string;
+  title?: string;
+  pathname?: Slug;
+  sections?: Array<
+    | ({
+        _key: string;
+      } & CaseStudyCard)
+    | ({
+        _key: string;
+      } & CaseStudyHero)
+    | ({
+        _key: string;
+      } & CaseStudySection)
+  >;
 };
 
 export type SanityImageCrop = {
@@ -172,7 +196,10 @@ export type AllSanitySchemaTypes =
   | SanityImageDimensions
   | SanityFileAsset
   | Geopoint
-  | CaseStudy
+  | CaseStudySection
+  | CaseStudyHero
+  | CaseStudyCard
+  | Page
   | SanityImageCrop
   | SanityImageHotspot
   | SanityImageAsset
@@ -183,53 +210,10 @@ export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: HOME_CASE_STUDIES_QUERY
 // Query: *[_type == "caseStudy"][0...6]{    _id, title, description, slug, thumbnail {      asset -> {        url      }    }  }
-export type HOME_CASE_STUDIES_QUERYResult = Array<{
-  _id: string;
-  title: string | null;
-  description: string | null;
-  slug: Slug | null;
-  thumbnail: {
-    asset: {
-      url: string | null;
-    } | null;
-  } | null;
-}>;
+export type HOME_CASE_STUDIES_QUERYResult = Array<never>;
 // Variable: CASE_STUDY_QUERY
 // Query: *[_type == 'caseStudy' && slug.current == $slug][0]
-export type CASE_STUDY_QUERYResult = {
-  _id: string;
-  _type: "caseStudy";
-  _createdAt: string;
-  _updatedAt: string;
-  _rev: string;
-  title?: string;
-  slug?: Slug;
-  description?: string;
-  thumbnail?: {
-    asset?: {
-      _ref: string;
-      _type: "reference";
-      _weak?: boolean;
-      [internalGroqTypeReferenceTo]?: "sanity.imageAsset";
-    };
-    hotspot?: SanityImageHotspot;
-    crop?: SanityImageCrop;
-    _type: "image";
-  };
-  heroSection?: {
-    heroTitle?: string;
-    heroDescription?: string;
-  };
-  sections?: Array<{
-    sectionTitle?: string;
-    sectionDescription?: string;
-    cta?: {
-      ctaText?: string;
-      ctaLink?: string;
-    };
-    _key: string;
-  }>;
-} | null;
+export type CASE_STUDY_QUERYResult = null;
 
 // Query TypeMap
 import "@sanity/client";
