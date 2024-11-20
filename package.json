@@ -15,6 +15,7 @@
     "@sanity/client": "^6.22.4",
     "@sanity/image-url": "1",
     "@sanity/vision": "3",
+    "@tinloof/sanity-studio": "^1.4.0",
     "next": "15.0.3",
     "next-sanity": "9",
     "react": "18.3.1",
