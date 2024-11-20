@@ -208,18 +208,78 @@ export type AllSanitySchemaTypes =
   | Slug;
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
-// Variable: HOME_CASE_STUDIES_QUERY
-// Query: *[_type == "caseStudy"][0...6]{    _id, title, description, slug, thumbnail {      asset -> {        url      }    }  }
-export type HOME_CASE_STUDIES_QUERYResult = Array<never>;
-// Variable: CASE_STUDY_QUERY
-// Query: *[_type == 'caseStudy' && slug.current == $slug][0]
-export type CASE_STUDY_QUERYResult = null;
+// Variable: PAGE_DATA_QUERY
+// Query: *[pathname.current == $pathname][0]
+export type PAGE_DATA_QUERYResult =
+  | {
+      _id: string;
+      _type: "page";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      title?: string;
+      pathname?: Slug;
+      sections?: Array<
+        | ({
+            _key: string;
+          } & CaseStudyCard)
+        | ({
+            _key: string;
+          } & CaseStudyHero)
+        | ({
+            _key: string;
+          } & CaseStudySection)
+      >;
+    }
+  | {
+      _id: string;
+      _type: "sanity.fileAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      source?: SanityAssetSourceData;
+    }
+  | {
+      _id: string;
+      _type: "sanity.imageAsset";
+      _createdAt: string;
+      _updatedAt: string;
+      _rev: string;
+      originalFilename?: string;
+      label?: string;
+      title?: string;
+      description?: string;
+      altText?: string;
+      sha1hash?: string;
+      extension?: string;
+      mimeType?: string;
+      size?: number;
+      assetId?: string;
+      uploadId?: string;
+      path?: string;
+      url?: string;
+      metadata?: SanityImageMetadata;
+      source?: SanityAssetSourceData;
+    }
+  | null;
 
 // Query TypeMap
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    '*[_type == "caseStudy"][0...6]{\n    _id, title, description, slug, thumbnail {\n      asset -> {\n        url\n      }\n    }\n  }': HOME_CASE_STUDIES_QUERYResult;
-    "*[_type == 'caseStudy' && slug.current == $slug][0]": CASE_STUDY_QUERYResult;
+    "*[pathname.current == $pathname][0]": PAGE_DATA_QUERYResult;
   }
 }
