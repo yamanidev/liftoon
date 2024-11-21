@@ -104,6 +104,12 @@ export type CaseStudyCard = {
     crop?: SanityImageCrop;
     _type: "image";
   };
+  pageLink?: {
+    _ref: string;
+    _type: "reference";
+    _weak?: boolean;
+    [internalGroqTypeReferenceTo]?: "page";
+  };
 };
 
 export type Page = {
@@ -209,7 +215,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: PAGE_DATA_QUERY
-// Query: *[pathname.current == $pathname][0] {  ...,  sections[] {    ...,    thumbnail {      asset->{        url      }    }  }}
+// Query: *[pathname.current == $pathname][0] {  ...,  sections[] {    ...,    thumbnail {      asset->{        url      }    },    pageLink-> {      title, // You can specify the fields you need from the referenced page      pathname    }  }}
 export type PAGE_DATA_QUERYResult =
   | {
       _id: string;
@@ -230,6 +236,10 @@ export type PAGE_DATA_QUERYResult =
                 url: string | null;
               } | null;
             } | null;
+            pageLink: {
+              title: string | null;
+              pathname: Slug | null;
+            } | null;
           }
         | {
             _key: string;
@@ -241,6 +251,7 @@ export type PAGE_DATA_QUERYResult =
               projectLink?: string;
             };
             thumbnail: null;
+            pageLink: null;
           }
         | {
             _key: string;
@@ -253,6 +264,7 @@ export type PAGE_DATA_QUERYResult =
             };
             showCta?: boolean;
             thumbnail: null;
+            pageLink: null;
           }
       > | null;
     }
@@ -307,6 +319,6 @@ export type PAGE_DATA_QUERYResult =
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[pathname.current == $pathname][0] {\n  ...,\n  sections[] {\n    ...,\n    thumbnail {\n      asset->{\n        url\n      }\n    }\n  }\n}": PAGE_DATA_QUERYResult;
+    "*[pathname.current == $pathname][0] {\n  ...,\n  sections[] {\n    ...,\n    thumbnail {\n      asset->{\n        url\n      }\n    },\n    pageLink-> {\n      title, // You can specify the fields you need from the referenced page\n      pathname\n    }\n  }\n}": PAGE_DATA_QUERYResult;
   }
 }

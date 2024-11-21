@@ -22,6 +22,13 @@ export default defineField({
       type: "image", // @TODO: figure out how to allow videos as well
       title: "Image/Video",
       validation: (Rule) => Rule.required()
+    },
+    {
+      name: "pageLink",
+      type: "reference",
+      title: "Page link",
+      to: [{ type: "page" }],
+      validation: (Rule) => Rule.required()
     }
   ]
 });

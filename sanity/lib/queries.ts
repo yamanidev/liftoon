@@ -8,6 +8,10 @@ export const PAGE_DATA_QUERY = defineQuery(`*[pathname.current == $pathname][0] 
       asset->{
         url
       }
+    },
+    pageLink-> {
+      title, // You can specify the fields you need from the referenced page
+      pathname
     }
   }
 }`);

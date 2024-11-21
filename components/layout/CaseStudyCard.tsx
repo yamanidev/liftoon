@@ -5,7 +5,7 @@ import React from "react";
 
 export default function CaseStudyCard({ data }: { data: Section }) {
   return (
-    <Link href="#" className="block">
+    <Link href={data.pageLink?.pathname?.current ?? "#"} className="block">
       <article>
         <Image
           width="1264"
