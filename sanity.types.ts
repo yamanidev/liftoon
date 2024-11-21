@@ -209,7 +209,7 @@ export type AllSanitySchemaTypes =
 export declare const internalGroqTypeReferenceTo: unique symbol;
 // Source: ./sanity/lib/queries.ts
 // Variable: PAGE_DATA_QUERY
-// Query: *[pathname.current == $pathname][0]
+// Query: *[pathname.current == $pathname][0] {  ...,  sections[] {    ...,    thumbnail {      asset->{        url      }    }  }}
 export type PAGE_DATA_QUERYResult =
   | {
       _id: string;
@@ -219,17 +219,42 @@ export type PAGE_DATA_QUERYResult =
       _rev: string;
       title?: string;
       pathname?: Slug;
-      sections?: Array<
-        | ({
+      sections: Array<
+        | {
             _key: string;
-          } & CaseStudyCard)
-        | ({
+            _type: "caseStudyCard";
+            title?: string;
+            description?: string;
+            thumbnail: {
+              asset: {
+                url: string | null;
+              } | null;
+            } | null;
+          }
+        | {
             _key: string;
-          } & CaseStudyHero)
-        | ({
+            _type: "caseStudyHero";
+            title?: string;
+            description?: string;
+            project?: {
+              projectText?: string;
+              projectLink?: string;
+            };
+            thumbnail: null;
+          }
+        | {
             _key: string;
-          } & CaseStudySection)
-      >;
+            _type: "caseStudySection";
+            title?: string;
+            description?: string;
+            cta?: {
+              ctaText?: string;
+              ctaLink?: string;
+            };
+            showCta?: boolean;
+            thumbnail: null;
+          }
+      > | null;
     }
   | {
       _id: string;
@@ -251,6 +276,7 @@ export type PAGE_DATA_QUERYResult =
       path?: string;
       url?: string;
       source?: SanityAssetSourceData;
+      sections: null;
     }
   | {
       _id: string;
@@ -273,6 +299,7 @@ export type PAGE_DATA_QUERYResult =
       url?: string;
       metadata?: SanityImageMetadata;
       source?: SanityAssetSourceData;
+      sections: null;
     }
   | null;
 
@@ -280,6 +307,6 @@ export type PAGE_DATA_QUERYResult =
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
-    "*[pathname.current == $pathname][0]": PAGE_DATA_QUERYResult;
+    "*[pathname.current == $pathname][0] {\n  ...,\n  sections[] {\n    ...,\n    thumbnail {\n      asset->{\n        url\n      }\n    }\n  }\n}": PAGE_DATA_QUERYResult;
   }
 }
