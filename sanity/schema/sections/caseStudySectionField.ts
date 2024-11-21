@@ -16,6 +16,7 @@ export default defineField({
       type: "text",
       title: "Description"
     }),
+    // @TODO: add custom validation to ensure that when `showCta` is `true`, both `ctaText` and `ctaLink` are provided
     defineField({
       name: "cta",
       type: "object",
