@@ -2,7 +2,7 @@ import Link from "next/link";
 
 // @TODO: figure out a way to extract the exact type of a section
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-export default function Section({ data }: { data: any }) {
+export default function CaseStudySection({ data }: { data: any }) {
   return (
     <section className="py-10 sm:py-20">
       <h2 className="text-xl font-bold">{data.sectionTitle}</h2>

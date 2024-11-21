@@ -1,6 +1,6 @@
 import { CaseStudyHero } from "@/sanity.types";
 
-export default function HeroSection({ data }: { data: CaseStudyHero }) {
+export default function CaseStudyHeroSection({ data }: { data: CaseStudyHero }) {
   const title = data.title;
   const description = data.description;
 
