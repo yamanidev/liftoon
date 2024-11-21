@@ -1,11 +1,14 @@
 import PublicLayout from "@/components/layout/PublicLayout";
+import SectionsRenderer from "@/components/layout/SectionsRenderer";
+import { fetchPageData } from "@/sanity/lib/fetchers";
 
 export default async function Home() {
+  const pageData = await fetchPageData("/");
+  const sections = pageData?._type === "page" ? pageData.sections : null;
+
   return (
     <PublicLayout>
-      <section>
-        <div className="mx-auto w-full max-w-7xl space-y-10 px-2 py-20"></div>
-      </section>
+      <SectionsRenderer sections={sections} />
     </PublicLayout>
   );
 }
