@@ -15,6 +15,7 @@ export default defineField({
       type: "text",
       title: "Description"
     }),
+    // @TODO: add custom validation to ensure that `projectText` and `projectLink` are either both filled or both omitted
     defineField({
       name: "project",
       type: "object",
